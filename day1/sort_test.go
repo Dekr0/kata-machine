@@ -7,7 +7,7 @@ import (
 )
 
 
-func TestQuickSort(t *testing.T) {
+/*func TestQuickSort(t *testing.T) {
     test := []int{9, 3, 7, 4, 69, 420, 42}
     expe := []int{3, 4, 7, 9, 42, 69, 420}
 
@@ -16,16 +16,18 @@ func TestQuickSort(t *testing.T) {
     if !slices.Equal(test, expe) {
         t.Fatalf("output: %v\nexpected: %v", test, expe)
     }
-}
+}*/
 
-/*func TestMergeSort(t *testing.T) {
+func TestMergeSort(t *testing.T) {
     test := []int{9, 3, 7, 4, 69, 420, 42}
     expe := []int{3, 4, 7, 9, 42, 69, 420}
 
     sort.RMergesort(test)
 
+    t.Log(test)
+
     if !slices.Equal(test, expe) {
         t.Fatalf("output: %v\nexpected: %v", test, expe)
     }
-}*/
+}
 
