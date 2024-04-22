@@ -4,7 +4,7 @@ import (
 	"slices"
 	"testing"
 
-	"dekwo.dev/kuromaku/solution/sort"
+	"dekwo.dev/kata_machine/solution/sort"
 )
 
 

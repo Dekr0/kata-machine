@@ -1,9 +1,6 @@
 package sort
 
-import (
-	"cmp"
-	"fmt"
-)
+import "cmp"
 
 func merge[T cmp.Ordered](arr []T, low int, mid int, high int) {
     left_len  := mid - low  + 1
@@ -19,7 +16,6 @@ func merge[T cmp.Ordered](arr []T, low int, mid int, high int) {
     for i := 0; i < right_len; i++ {
         right[i] = arr[mid + i + 1]
     }
-    fmt.Println(low, mid, high)
 
     i, j, k := 0, 0, low
     for ; i < left_len && j < right_len; k++ {
