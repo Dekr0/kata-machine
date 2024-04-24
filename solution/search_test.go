@@ -79,7 +79,15 @@ func TestBST(t *testing.T) {
 func TestDFSBST(t *testing.T) {
     root := structure.MakeTreeB() 
 
-    if !search.RDFS(root, 45) { t.Fatalf("Search for 45. Output: %v. Expected: %v", false, true )}
-    if !search.RDFS(root, 7 ) { t.Fatalf("Search for 7.  Output: %v. Expected: %v", false, true )}
-    if  search.RDFS(root, 69) { t.Fatalf("Search for 69. Output: %v. Expected: %v", true, false )}
+    if !search.DFS(root, 45) { t.Fatalf("Search for 45. Output: %v. Expected: %v", false, true )}
+    if !search.DFS(root, 7 ) { t.Fatalf("Search for 7.  Output: %v. Expected: %v", false, true )}
+    if  search.DFS(root, 69) { t.Fatalf("Search for 69. Output: %v. Expected: %v", true, false )}
+}
+
+func TestBFSBST(t *testing.T) {
+    root := structure.MakeTreeB()
+
+    if !search.BFS(root, 45) { t.Fatalf("Search for 45. Output: %v. Expected: %v", false, true )}
+    if !search.BFS(root, 7 ) { t.Fatalf("Search for 7.  Output: %v. Expected: %v", false, true )}
+    if  search.BFS(root, 69) { t.Fatalf("Search for 69. Output: %v. Expected: %v", true, false )}
 }

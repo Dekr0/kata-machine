@@ -47,8 +47,40 @@ func RDFS[T comparable](node *structure.TreeNode[T], needle T) bool {
     return false
 }
 
+func DFS[T comparable](node *structure.TreeNode[T], needle T) bool {
+    if node == nil { return false }
+
+    stack := []*structure.TreeNode[T]{ node }
+
+    for len(stack) > 0 {
+        pop := stack[len(stack) - 1]
+
+        if pop.Value == needle { return true }
+
+        stack = stack[:len(stack) - 1]
+
+        if pop.Left != nil { stack = append(stack, pop.Left) }
+
+        if pop.Right != nil { stack = append(stack, pop.Right) }
+    }
+
+    return false
+}
+
 func BFS[T comparable](node *structure.TreeNode[T], needle T) bool {
-    
+    queue := []*structure.TreeNode[T]{ node }
+
+    for len(queue) > 0 {
+        dequeued := queue[0]
+        
+        if dequeued.Value == needle { return true }
+        
+        if dequeued.Left != nil { queue = append(queue, dequeued.Left) }
+
+        if dequeued.Right != nil { queue = append(queue, dequeued.Right) }
+
+        queue = queue[1:]
+    }
 
     return false
 }
