@@ -21,7 +21,7 @@ func MakeTree[T comparable](arr []T, parent *TreeNode[T], left int, right int) {
 }
 
 func MakeTreeA() *TreeNode[int] {
-    arr := []int{1, 2, 3, 4, 5}
+    arr := []int{1}
 
     root := &TreeNode[int]{ arr[0], nil, nil }
 
