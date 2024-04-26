@@ -1,3 +1,5 @@
+package sort
+
 import "cmp"
 
 func pivot[T cmp.Ordered](arr []T, low int, high int) int {}

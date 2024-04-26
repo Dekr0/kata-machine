@@ -1,3 +1,5 @@
+package sort
+
 import "cmp"
 
 func merge[T cmp.Ordered](arr []T, buffer []T, low int, mid int, high int) {}

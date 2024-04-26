@@ -12,12 +12,6 @@ type RingBuffer struct {
 
 func NewRingBuffer(size int) (*RingBuffer, error) {}
 
-func (r *RingBuffer) _next_read() {}
-
-func (r *RingBuffer) _next_write() {}
-
-func (r *RingBuffer) IsEmpty() bool {}
-
 func (r *RingBuffer) Push(i *Node) *Node {}
 
 func (r *RingBuffer) Pop() *Node {}

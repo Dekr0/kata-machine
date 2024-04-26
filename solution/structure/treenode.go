@@ -1,13 +1,15 @@
 package structure
 
-type TreeNode[T comparable] struct {
+import "cmp"
+
+type TreeNode[T cmp.Ordered] struct {
     Value T
     Left  *TreeNode[T]
     Right *TreeNode[T]
 }
 
 // Naive implementation on convert an array to binary tree
-func MakeTree[T comparable](arr []T, parent *TreeNode[T], left int, right int) {
+func MakeTree[T cmp.Ordered](arr []T, parent *TreeNode[T], left int, right int) {
     if left >= len(arr) { return }
 
     parent.Left = &TreeNode[T]{ arr[left], nil, nil }
