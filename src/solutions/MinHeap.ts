@@ -1,122 +1,78 @@
 export default class MinHeap {
-
+    public arr: number[];
     public length: number;
-
-    private heap: number[];
-
-    constructor() {
-        this.heap = [];
+    
+    public constructor() {
+        this.arr = [];
         this.length = 0;
     }
 
-    public toArray(): number[] {
-        return Array.from(this.heap);
-    }
+    private root(leaf: number): number { return Math.floor(leaf / 2); }
 
-    public traverse(): void {
-        if (this.heap.length === 0) return;
+    private left(root: number): number { return root * 2 + 1; }
 
-        const nodes: number[] = [0];
+    private right(root: number): number { return root * 2 + 2; }
 
-        while (nodes.length > 0) {
-            const node = nodes.pop();
-            if (node !== undefined) {
-                console.log(node, this.heap[node]);
+    private heapifyDown(root: number): void {
+        do {
+            let minIdx = this.left(root);
 
-                const left = this.left(node);
-                const right = this.right(node);
+            if (minIdx >= this.length) return;
 
-                if (left < this.heap.length) nodes.push(left);
-                if (right < this.heap.length) nodes.push(right);
-            } else {
-                throw new Error("Something goes very wrong in traverse and heap implementation");
-            }
-        }
-    }
+            const right = this.right(root);
 
-    private parent(idx: number): number {
-        return Math.floor((idx - 1) / 2);
-    }
-
-    private left(idx: number): number {
-        return idx * 2 + 1;
-    }
-
-    private right(idx: number): number {
-        return idx * 2 + 2;
-    }
-
-    // Heapify up
-    private up(idx: number): void {
-        let parent = this.parent(idx);
-
-        // idx is zero => no need to heapify up
-        // continue heapify up if the current node is less than the parent node
-        while (idx > 0 && this.heap[parent] > this.heap[idx]) {
-            const tmp = this.heap[parent];
-            this.heap[parent] = this.heap[idx]; // move current node to parent node (up)
-            this.heap[idx] = tmp;  // move parent node to the current node (down)
-            idx = parent;
-            parent = this.parent(idx);
-        }
-    }
-
-    // Heapify down
-    private down(idx: number): void {
-        while (idx < this.heap.length) {
-            const left = this.left(idx);
-            const right = this.right(idx);
-            if (left > this.heap.length) return;  // No more child node
-
-            const min = right < this.heap.length && this.heap[right] < this.heap[left] 
+            minIdx = right < this.length && this.arr[right] < this.arr[minIdx] 
                 ? right 
-                : left;
+                : minIdx;
 
-            // No need to heapify down if the current node is less than min of two child node
-            // Heap condition is hold in this current node
-            if (this.heap[idx] < this.heap[min]) return;
+            if (this.arr[root] < this.arr[minIdx]) return;
 
-            const tmp = this.heap[idx];
-            this.heap[idx] = this.heap[min];
-            this.heap[min] = tmp;
-            
-            idx = min;
+            this.swap(minIdx, root);
+
+            root = minIdx;
+        } while(true);
+    }
+
+    private heapifyUp(leaf: number): void {
+        let root = this.root(leaf);
+        while (root >= 0 && this.arr[leaf] < this.arr[root]) {
+            this.swap(leaf, root);
+            leaf = root;
+            root = this.root(leaf);
         }
     }
 
-    insert(value: number): void {
-        this.heap[this.heap.length] = value;
-
-        // length should increment after heapify up to prevent access out of bound
-        // e.g. length is 0 => insert => length is 1 but there's no element in heap[1]
-        // instead of heap[0]
-        this.up(this.heap.length - 1);
-        this.length = this.heap.length;
+    private swap(srcIdx: number, destIdx: number): void {
+        const dest = this.arr[destIdx];
+        this.arr[destIdx] = this.arr[srcIdx];
+        this.arr[srcIdx] = dest;
     }
 
-    // Pop() / Poll() => Remove the top of the heap
-    delete(): number {
-        let top = NaN;
+    public insert(v: number): void {
+        this.arr[this.length] = v;
 
-        if (this.heap.length === 0) return top;
+        this.length = this.length + 1;
 
-
-        top = this.heap[0];
-        const tail = this.heap.pop(); 
-        this.length = this.heap.length;
-        if (tail !== undefined) {
-            this.heap[0] = tail;
-            if (this.heap.length > 1) {
-                this.down(0);
-            }
-        } else {
-            throw new Error("Something goes very wrong in delete and the heap implementation");
+        if (this.length > 1) {
+            this.heapifyUp(this.length - 1);
         }
-
-        return top;
     }
 
-    peek(): number {
-        return this.length === 0 ? NaN : this.heap[0];
+    public peek(): number { return this.length > 0 ? this.arr[0] : NaN; }
+
+    public delete(): number {
+        if (this.length === 0) return NaN;
+
+        const v = this.arr[0];
+
+        this.swap(0, this.length - 1);
+
+        this.length = this.length - 1;
+
+        if (this.length <= 1) return v;
+
+        this.heapifyDown(0);
+
+        return v;
     }
 }

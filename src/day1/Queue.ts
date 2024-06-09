@@ -44,4 +44,16 @@ export default class Queue<T> {
     public peek(): T | undefined {
         return this.head?.value;
     }
+
+    public toArray(): T[] {
+        const arr = [];
+
+        let curr = this.head;
+        while (curr) {
+            arr.push(curr.value);
+            curr = curr.next;
+        }
+
+        return arr;
+    }
 }

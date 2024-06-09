@@ -13,6 +13,7 @@ module.exports = {
         "ArrayList",
         "MazeSolver",
         "QuickSort",
+        "MergeSort",
         "BTPreOrder",
         "BTInOrder",
         "BTPostOrder",

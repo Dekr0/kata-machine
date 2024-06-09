@@ -1,17 +1,17 @@
-import Queue from "./Queue";
-
 export default function bfs(head: BinaryNode<number>, needle: number): boolean {
-    const q = new Queue<BinaryNode<number>>();
+    const queue = [head];
 
-    q.enqueue(head);
-    
-    while (q.length !== 0) {
-        const node = q.deque();
-        if (node) {
-            if (node.value === needle) return true;
-            if (node.left) q.enqueue(node.left);
-            if (node.right) q.enqueue(node.right);
-        }
+    while (queue.length > 0) {
+        const unsafe = queue.shift();
+        if (!unsafe) throw Error("Exception occurs");
+
+        const safe = unsafe as BinaryNode<number>;
+
+        if (safe.value === needle) return true;
+
+        safe.left !== null && queue.push(safe.left);
+
+        safe.right !== null && queue.push(safe.right);
     }
 
     return false;

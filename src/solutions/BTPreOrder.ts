@@ -1,21 +1,11 @@
-function walk<T>(curr: BinaryNode<T> | null, path: T[]): T[] {
-    // This simplfy some base cases by simply walking into a null node
-    // => a node is leaf node,
-    // => a node only have left child => walk left only
-    // => a node only have right child => walk right only
-    // The agent will simply keep walking
-    // 
-    if (!curr) {   
-        return path;
-    }
+export default function pre_order_search(head: BinaryNode<number>): number[] {
+    const arr = [head.value];
 
-    path.push(curr.value);
-    walk(curr.left, path);
-    walk(curr.right, path);
+    if (head.left === null && head.right === null) return arr;
 
-    return path;
-}
+    if (head.left !== null) arr.push(...pre_order_search(head.left));
 
-export default function pre_order_search<T>(head: BinaryNode<T>): T[] {
-    return walk(head, []);
+    if (head.right !== null) arr.push(...pre_order_search(head.right));
+
+    return arr;
 }

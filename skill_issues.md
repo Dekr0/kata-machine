@@ -1,0 +1,7 @@
+- BFS graph search
+- Merging in merge sort
+- State update in Recursion using assignment
+- Maze Solver
+    - Order of base cases is important
+    - Order of instruction is important (Pre, In, Post) 
+    - Current state instead of next state

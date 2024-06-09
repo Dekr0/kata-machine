@@ -1,4 +1,5 @@
 import maze_solver from "@code/MazeSolver";
+import { log } from "console";
 
 test("maze solver", function () {
     const maze = [
@@ -30,6 +31,9 @@ test("maze solver", function () {
 
     // there is only one path through
     const result = maze_solver(maze, "x", { x: 10, y: 0 }, { x: 1, y: 5 });
+
+   log(drawPath(maze, result)); 
+
     expect(drawPath(maze, result)).toEqual(drawPath(maze, mazeResult));
 });
 

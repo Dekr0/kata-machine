@@ -31,19 +31,23 @@ export default class LRU<K, V> {
         if (node === this.head) return node.v;
 
         if (node === this.tail) {
-            if (!node.prev) throw Error("Ops");
+            if (!node.prev) throw Error("Exception occurs");
 
-            this.tail = node.prev; this.tail.next = undefined;
+            this.tail = node.prev; 
+            this.tail.next = undefined;
         } else {
-            if (!node.prev) throw Error("Ops");
-            if (!node.next) throw Error("Ops");
+            if (!node.prev) throw Error("Exception occurs");
+            if (!node.next) throw Error("Exception occurs");
 
-            node.prev.next = node.next; node.next.prev = node.prev;
+            node.prev.next = node.next; 
+            node.next.prev = node.prev;
         }
 
-        if (!this.head) throw Error("Ops");
+        if (!this.head) throw Error("Exception occurs");
 
-        this.head.prev = node; node.next = this.head; this.head = node;
+        this.head.prev = node;
+        node.next = this.head;
+        this.head = node;
 
         return node.v;
     }
@@ -53,57 +57,69 @@ export default class LRU<K, V> {
 
         if (!this.map.has(k)) { this.prepend(k, v); return; }
 
-        const node = this.map.get(k) as Node<V>; node.v = v;
+        const node = this.map.get(k) as Node<V>;
+        node.v = v;
 
         if (node === this.head) return; 
 
         if (node === this.tail) {
-            if (!node.prev) throw Error("Ops");
+            if (!node.prev) throw Error("Exception occurs");
 
-            this.tail = node.prev; this.tail.next = undefined;
+            this.tail = node.prev;
+            this.tail.next = undefined;
         } else {
-            if (!node.prev) throw Error("Ops");
-            if (!node.next) throw Error("Ops");
+            if (!node.prev) throw Error("Exception occurs");
+            if (!node.next) throw Error("Exception occurs");
 
-            node.prev.next = node.next; node.next.prev = node.prev;
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
         }
 
-        if (!this.head) throw Error("Ops");
+        if (!this.head) throw Error("Exception occurs");
 
-        this.head.prev = node; node.next = this.head; this.head = node;
+        this.head.prev = node;
+        node.next = this.head;
+        this.head = node;
     }
 
     private prepend(k: K, v: V): void {
         const node: Node<V> = { v: v, next: undefined, prev: undefined };
         
-        this.map.set(k, node); this.reverse_map.set(node, k);
+        this.map.set(k, node);
+        this.reverse_map.set(node, k);
 
         if (this.size === 0) { 
-            this.head = this.tail = node; this.size++; return;
+            this.head = this.tail = node;
+            this.size = this.size + 1;
+            return;
         }
 
         if (this.size === this.capc) {
-            if (!this.tail) throw Error("Ops");
+            if (!this.tail) throw Error("Exception occurs");
             
-            if (!this.reverse_map.has(this.tail)) throw ("Ops");
+            if (!this.reverse_map.has(this.tail)) throw ("Exception occurs");
 
             const tail_key = this.reverse_map.get(this.tail) as K;
 
-            this.reverse_map.delete(this.tail); this.map.delete(tail_key);
+            this.reverse_map.delete(this.tail);
+            this.map.delete(tail_key);
 
             if (this.capc === 1) {
                 this.head = this.tail = undefined;
             } else {
-                if (!this.tail.prev) throw Error("Ops");
+                if (!this.tail.prev) throw Error("Exception occurs");
 
-                this.tail = this.tail.prev; this.tail.next = undefined;
+                this.tail = this.tail.prev;
+                this.tail.next = undefined;
             }
         } else {
-            this.size++;
+            this.size = this.size + 1;
         }
 
-        if (!this.head) throw Error("Ops"); 
+        if (!this.head) throw Error("Exception occurs"); 
 
-        node.next = this.head; this.head.prev = node; this.head = node; 
+        node.next = this.head;
+        this.head.prev = node;
+        this.head = node; 
     }
 }

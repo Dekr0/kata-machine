@@ -1,11 +1,11 @@
-function walk<T>(curr: BinaryNode<T> | null, path: T[]): T[] {
-    if (!curr) return path;
-    walk(curr.left, path);
-    walk(curr.right, path);
-    path.push(curr.value);
-    return path;
-}
+export default function post_order_search(head: BinaryNode<number>): number[] {
+    const arr = [];
 
-export default function post_order_search<T>(head: BinaryNode<T>): T[] {
-    return walk(head, []);
+    if (head.left !== null) arr.push(...post_order_search(head.left));
+
+    if (head.right !== null) arr.push(...post_order_search(head.right));
+
+    arr.push(head.value);
+
+    return arr;
 }

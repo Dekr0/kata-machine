@@ -1,11 +1,11 @@
-function walk<T>(curr: BinaryNode<T> | null, path: T[]): T[] {
-    if (!curr) return path;
-    walk(curr.left, path);
-    path.push(curr.value);
-    walk(curr.right, path);
-    return path;
-}
-
 export default function in_order_search(head: BinaryNode<number>): number[] {
-    return walk(head, []);
+    const arr = [];
+
+    if (head.left) arr.push(...in_order_search(head.left));
+
+    arr.push(head.value);
+
+    if (head.right) arr.push(...in_order_search(head.right));
+
+    return arr;
 }
